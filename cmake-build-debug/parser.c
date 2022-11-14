@@ -105,21 +105,33 @@ void insertall(t_ht_list *baselist,  t_ht_list * inflictedlist,t_ht_list *typeli
 t_ht_list * randomgenerator(Node * root){
     t_ht_list * word=createlist();
    // srand(time(0));
-    int y,i,stop=0,ismiddle=0;
+    int y,i,stop=0,ismiddle=0,u=0;
     Node *temp=root;
+    if(temp) {
+        y = rand() % 25;
+        for (int j = 0; temp->right && j < y; ++j) {
 
+            temp = temp->right;
+        }
+       // printf("\n%c<----%d\n",temp->key,y);
+        u=1;
+    }
     while(!stop){
 
        //srand(time(0));
         if(temp){
-            y=rand()%27;
-            for (int j = 0; temp->right &&j <y ; ++j) {
-                //printf("%c<----\n",temp->key);
+
+            y=rand()%15;
+            for (int j = 0; u==0&&temp->right &&j <y ; ++j) {
                 temp=temp->right;
             }
-            //printf("reached here");
 
-            i=rand()%3;
+            //printf("reached here");
+            if(u)
+                i=1;
+            else
+                i=rand()%3;
+            u=0;
           //printf("temp->key--->%c\n",temp->key);
             switch (i) {
                 case 0:
