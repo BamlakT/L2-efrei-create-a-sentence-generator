@@ -11,8 +11,6 @@ int main()
     // Use current time as
     // seed for random generator
     srand(time(0));
-    //printf("Print random sentence\n");
-    //modelone();
     printf("\n             -Hello-\n         ---This is Group INT2-9 !---");
     menu_real();
 

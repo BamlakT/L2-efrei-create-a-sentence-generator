@@ -114,11 +114,13 @@ t_ht_list * randomgenerator(Node * root){
         if(temp){
             y=rand()%27;
             for (int j = 0; temp->right &&j <y ; ++j) {
+                //printf("%c<----\n",temp->key);
                 temp=temp->right;
             }
+            //printf("reached here");
 
             i=rand()%3;
-          //printf("temp->data--->%c\n",temp->data);
+          //printf("temp->key--->%c\n",temp->key);
             switch (i) {
                 case 0:
                     if(temp->left){
@@ -157,14 +159,14 @@ t_ht_list * randomgenerator(Node * root){
                     stop=1;
                     break;
             }
-            if(temp->inflictedno!=0&&ismiddle){
+            if(temp&&temp->inflictedno!=0&&ismiddle){
                 if(rand()%3==0){
-                    //printf("**************rand =0 letter to be added--->%c\n",temp->data);
-                    addTailHt(word,temp->data);
+                    //printf("**************rand =0 letter to be added--->%c\n",temp->key);
+                    addTailHt(word,temp->key);
                     stop=1;}
                 else{/*
-                    printf("************rand=1 letter to be added--->%c\n",temp->data);*/
-                    addTailHt(word,temp->data);
+                    printf("************rand=1 letter to be added--->%c\n",temp->key);*/
+                    addTailHt(word,temp->key);
                     //if(ismiddle){
                     ismiddle=0;
                     temp=temp->mid_eq;   // }
@@ -174,8 +176,8 @@ t_ht_list * randomgenerator(Node * root){
             }
             else if(ismiddle){/*
                 printf("middle no null and temp=temp->mid_eq\n");
-                printf("************rand=1 letter to be added--->%c\n",temp->data);*/
-                addTailHt(word,temp->data);
+                printf("************rand=1 letter to be added--->%c\n",temp->key);*/
+                addTailHt(word,temp->key);
                 ismiddle=0;
                 temp=temp->mid_eq;
             }
@@ -183,6 +185,10 @@ t_ht_list * randomgenerator(Node * root){
             stop=1;
         }
     }
+    /*
+    printf("\n hi\n");
+    displaytowordvoid(*word);
+    printf("\n above\n");*/
     return word;
 
 }
@@ -216,14 +222,14 @@ int menu_real(){
         num=6;
         do { // SAISIE SECU
             printf("\nPlease enter your choice\n");
-            printf(" (1) Search words from the tree | (2) Print all the base words in the tree\n (3) Generate Randoms Sentence  | (4) Know who's behind this project\n (5)Quit\n  ");
+            printf(" (1) Search words from the tree | (2) Print all the base words in the tree\n (3) Generate Randoms Sentence  | (4) Get the inflicted form of a base word\n (5)Quit\n  ");
             printf("What do you want ?\n:");
 
             scanf("%d", &num);
         } while (num<0|| num > 6);
         switch(num){
             case 1 :
-                search_tree();
+                search_tree(0);
                 //fonctions
                 //return second_menu();
                 break;
@@ -236,6 +242,9 @@ int menu_real(){
                 return menu_real();
                 //fonctions
                 break;//return second_menu();
+            case 4:
+                if(search_tree(1)){}
+                break;
             case 5 :
                 printf("Goodbye!\n");
                 return 0;
@@ -254,76 +263,34 @@ int menu_real(){
 
 }
 
-// Function to autocomplete
-// based on the given prefix
-// and return the suggestions
-void autocomplete(Node* root, p_cell word)
-{
-  //t_ht_list words;
-    //vector<string> words;
-    /*
-    while (word){
-        printf("%c",word->value);
-        word=word->next;
-    }*/
-
-    // If pattern is empty
-    // return an empty list
-    if (!word)
-        return;
-
-    // Iterating over the characters
-    // of the pattern and find it's
-    // corresponding node in the tree
-
-    while (root && word) {
-
-        // If current character is smaller
-        if (root->data > word->value)
-            // Search the left subtree
-            root = root->left;
-
-            // current character is greater
-        else if (root->data < word->value)
-            // Search right subtree
-            root = root->right;
-
-            // If current character is mid_eq
-        else if (root->data == word->value) {
-
-            // Search mid_eq subtree
-            // since character is found, move to the next character in the pattern
-            root = root->mid_eq;
-            word=word->next;
-        }
-            // If not found
-        else
-            return;
-
-    }
-    if(root)
-        printf("kkkkkkkkkkkkkkkkkkkkkkk");
-
-    printf("---------------");
-    traverseTST(root);
-
-}
 
 
 void print_tree(){
     printf("Following is traversal of noun ternary search tree\n");
-    traverseTST(noun);
+    char nounl[MAX];
+
+    base_recprint(noun, nounl, 0);
+    //printbasetree(noun);
     printf("Following is traversal of adjective ternary search tree\n");
-    traverseTST(adjective);
+    char adjectivel[MAX];
+
+    base_recprint(adjective, adjectivel, 0);
+   // printbasetree(adjective);
     printf("Following is traversal of adverb ternary search tree\n");
-    traverseTST(adverb);
+    char adverblist[MAX];
+
+    base_recprint(adverb, adverblist, 0);
+   // printbasetree(adverb);
     printf("Following is traversal of verb ternary search tree\n");
-    traverseTST(verb);
+    char verblist[MAX];
+
+    base_recprint(verb, verblist, 0);
+   // printbasetree(verb);
 }
 
 /*
                printf("\n********Printing the child of adverb***************************** /\n");
-               traverseinfTST((temp)->pointer);
+               printinflictedtree((temp)->pointer);
                printf("\n********Printing the child of child of adverb***************************** /\n");
                switch ((temp1)->pointer->gender) {
                    case 'F':
@@ -352,7 +319,7 @@ void print_tree(){
                }
                printf("*******************\n");*/
 
-void search_tree(){
+int search_tree(int num){
     t_ht_list * list=createlist();
     int i=0;
     do{
@@ -369,36 +336,69 @@ void search_tree(){
     //printf("%d",i);
     switch(i){
         case 1 :
-            if(searchTST(verb,list->head)){
-                displaytowordvoid(*list);
-                printf("it is found");
+            if(findinbasetree(verb, list->head)){
+                //displaytowordvoid(*list);
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&verb, list->head))->pointer, buffer, 0);
+                }
+                  //  printinflictedtree((insert_to_baseTree(&verb, list->head))->pointer);
+                return 1;
             }
-            else
+            else{
                 printf("not found");
+                return 0;
+            }
+
             break;
         case 2 :
 
-            if(searchTST(noun,list->head)){
-                printf("it is found");
+            if(findinbasetree(noun, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&noun, list->head))->pointer, buffer, 0);
+                }
+                    //printinflictedtree((insert_to_baseTree(&noun, list->head))->pointer);
+                return 1;
             }
-            else
-                printf("not found");
+            else{
+                printf("\nit is found\n");
+                return 0;
+            }
 
             break;        //return second_menu();
         case 3 :
-            if(searchTST(adverb,list->head)){
-                printf("it is found");
+            if(findinbasetree(adverb, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&adverb, list->head))->pointer, buffer, 0);
+                }
+                   // printinflictedtree((insert_to_baseTree(&adverb, list->head))->pointer);
+                return 1;
             }
-            else
-                printf("not found");
+            else{
+                printf("\nit is found\n");
+                return 0;
+            }
             //fonctions
             break;//return second_menu();
         case 4 :
-            if(searchTST(adjective,list->head)){
-                printf("it is found");
+            if(findinbasetree(adjective, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree(insert_to_baseTree(&adjective, list->head)->pointer, buffer, 0);
+                }
+                    //printinflictedtree((insert_to_baseTree(&adjective, list->head))->pointer);
+                return 1;
             }
-            else
+            else{
                 printf("not found");
+                return 0;
+            }
             break;
         default:
             printf("incorrect type of value given!!  Please enter numbers not characters\n");

@@ -14,7 +14,10 @@ void insertall(t_ht_list *,  t_ht_list * ,t_ht_list *);
 t_ht_list * randomgenerator(Node*);
 int menu_real();
 void autocomplete(Node* , p_cell );
-void search_tree();
+int search_tree(int);
 void print_tree();
 void modelone();
+
+
+Node *fuuuuu();
 #endif //DICTIONARYPROJECT_PARSER_H

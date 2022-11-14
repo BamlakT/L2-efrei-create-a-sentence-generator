@@ -7,14 +7,15 @@
 //global variable typelist that is a t_ht_list pointer
 t_ht_list * typelistt=NULL;
 // create ternary search tree for the base form
-Node* create_base_tst(char data)
+Node* create_base_tst(char letter)
 {
-    Node* temp = (Node*) malloc(sizeof(Node ));
-    temp->data = data;
-    temp->inflictedno = 0;
-    temp->left = temp->mid_eq = temp->right=NULL;
-    temp->pointer=NULL;
-    return temp;
+    Node* mynode = (Node*) malloc(sizeof(Node ));
+    mynode->key = letter;
+    mynode->left = mynode->mid_eq = mynode->right=NULL;
+    mynode->pointer=NULL;
+
+    mynode->inflictedno = 0;
+    return mynode;
 }
 
 
@@ -23,15 +24,15 @@ Node* insert_to_baseTree(Node** root, p_cell ptr_word)
 {    // Base Case: Tree is empty
     if (!(*root))
         *root = create_base_tst(ptr_word->value);
-    else if(!(*root)->data)
-        (*root)->data=ptr_word->value;
-    // If ptr_word->value is < than (*root)->data,
+    else if(!(*root)->key)
+        (*root)->key=ptr_word->value;
+    // If ptr_word->value is < than (*root)->key,
     // then insert_to_baseTree this ptr_word in (*root)->left
-    if ((ptr_word->value) < (*root)->data)
+    if ((ptr_word->value) < (*root)->key)
         insert_to_baseTree(&((*root)->left), ptr_word);
-        // If ptr_word->value is > than (*root)->data,
+        // If ptr_word->value is > than (*root)->key,
         // then insert_to_baseTree this ptr_word in (*root)->right)
-    else if ((ptr_word->value) > (*root)->data)
+    else if ((ptr_word->value) > (*root)->key)
         insert_to_baseTree(&((*root)->right), ptr_word);
         // If ptr_word->value of ptr_word is == as root's character,
     else {if (ptr_word->next)
@@ -52,91 +53,69 @@ Node* insert_to_baseTree(Node** root, p_cell ptr_word)
 }
 
 // A recursive function to traverse Ternary Search Tree
-void traverseTSTUtil(Node* root, char* buffer, int depth)
+void base_recprint(Node* node_root, char* string, int height)
 {
-    if (root)
+    if (node_root)
     {
-        // First traverse the left subtree
-        traverseTSTUtil(root->left, buffer, depth);
-
-        // Store the character of this node
-        buffer[depth] = root->data;
-        if (root->inflictedno)
+        base_recprint(node_root->left, string, height);
+        string[height] = node_root->key;
+        if (node_root->inflictedno)
         {
-            buffer[depth+1] = '\0';
-            printf( "%s\n", buffer);
+            string[height + 1] = '\0';
+            printf("%s\n", string);
         }
+        else{
 
-        // Traverse the subtree using mid_eq pointer (middle subtree)
-        traverseTSTUtil(root->mid_eq, buffer, depth + 1);
-
-        // Finally Traverse the right subtree
-        traverseTSTUtil(root->right, buffer, depth);
+        }
+        base_recprint(node_root->mid_eq, string, height + 1);
+        base_recprint(node_root->right, string, height);
     }
 }
 
-// The main function to traverse a Ternary Search Tree.
-// It mainly uses traverseTSTUtil()
-void traverseTST(Node* root)
-{
-    char buffer[MAX];
-    if(root!=NULL)
-        traverseTSTUtil(root, buffer, 0);
-}
 
 // A recursive function to traverse Ternary Search Tree
-void traverseinfTSTUtil(inf_Node * root, char* buffer, int depth)
+void inf_printtree(inf_Node * node_root, char* string, int height)
 {
-    if (root)
+    if (node_root)
     {
-        // First traverse the left subtree
-        traverseinfTSTUtil(root->left, buffer, depth);
+        //left tstsubtree
+        inf_printtree(node_root->left, string, height);
 
-        // Store the character of this node
-        buffer[depth] = root->data;
-        if (root->end_of_word)
+        //obtain
+        string[height] = node_root->key;
+        if (node_root->end_of_word)
         {
-            buffer[depth+1] = '\0';
-            printf( "%s\n", buffer);
+            string[height + 1] = '\0';
+            printf("%s\n", string);
         }
-
-        // Traverse the subtree using mid_eq pointer (middle subtree)
-        traverseinfTSTUtil(root->mid_eq, buffer, depth + 1);
-
-        // Finally Traverse the right subtree
-        traverseinfTSTUtil(root->right, buffer, depth);
+        inf_printtree(node_root->mid_eq, string, height + 1);
+        //right tsttree
+        inf_printtree(node_root->right, string, height);
     }
 }
 
-// The main function to traverse a Ternary Search Tree.
-// It mainly uses traverseTSTUtil()
-void traverseinfTST(inf_Node * root)
-{
-    char buffer[MAX];
-    if(root!=NULL)
-        traverseinfTSTUtil(root, buffer, 0);
-}
 
 
-// Function to search a given word in TST
-int searchTST(Node *root, p_cell word)
+
+// Function to search a given ptr_wrd in TST
+int findinbasetree(Node *node_root, p_cell ptr_wrd)
 {
-    if (!root)
+    if (!node_root)
         return 0;
 
-    if (word->value < (root)->data)
-        return searchTST(root->left, word);
+    if (ptr_wrd->value < (node_root)->key)
+        return findinbasetree(node_root->left, ptr_wrd);
 
-    else if (word->value > (root)->data)
-        return searchTST(root->right, word);
+    else if (ptr_wrd->value > (node_root)->key)
+        return findinbasetree(node_root->right, ptr_wrd);
 
     else
     {
-        if (!(word->next)){
+        if (!(ptr_wrd->next)){
 
-            return root->inflictedno;}
+            return node_root->inflictedno;}
 
-        return searchTST(root->mid_eq, word->next);
+        return findinbasetree(node_root->mid_eq, ptr_wrd->next);
     }
 }
 
@@ -144,7 +123,7 @@ int searchTST(Node *root, p_cell word)
 inf_Node* create_inflicted_tst(char data)
 {
     inf_Node * temp = (inf_Node*) malloc(sizeof(inf_Node ));
-    temp->data = data;
+    temp->key = data;
     temp->end_of_word=0;
     temp->left = temp->mid_eq = temp->right=NULL;
     temp->pointer=NULL;
@@ -156,41 +135,40 @@ inf_Node *insertinffromlist(inf_Node ** root, p_cell word,t_ht_list * typelist){
         typelistt=typelist;
     return (*insert_to_inflicted_tree(root, word));
 }
-inf_Node ** insert_to_inflicted_tree(inf_Node ** root, p_cell word)
+inf_Node ** insert_to_inflicted_tree(inf_Node ** node_root, p_cell ptr_pcellword)
 {
     // Base Case: Tree is empty
-    if (!(*root))
-        *root = create_inflicted_tst(word->value);
-    else if(!(*root)->data)
-        (*root)->data=word->value;
-    // If current character of word is smaller than root's character,
-    // then insert_to_baseTree this word in left subtree of root
-    if ((word->value) < (*root)->data)
-        insert_to_inflicted_tree(&((*root)->left), word);
+    if (!(*node_root))
+        *node_root = create_inflicted_tst(ptr_pcellword->value);
+    else if(!(*node_root)->key)
+        (*node_root)->key=ptr_pcellword->value;
+    // If ptr_word->value is < than (*root)->key,
+    // then insert_to_baseTree this ptr_word in (*root)->left
+    if ((ptr_pcellword->value) < (*node_root)->key)
+        insert_to_inflicted_tree(&((*node_root)->left), ptr_pcellword);
 
-        // If current character of word is greater than root's character,
-        // then insert_to_baseTree this word in right subtree of root
-    else if ((word->value) > (*root)->data)
-        insert_to_inflicted_tree(&((*root)->right), word);
+        // If ptr_word->value is > than (*root)->key,
+        // then insert_to_baseTree this ptr_word in (*root)->right_>
+    else if ((ptr_pcellword->value) > (*node_root)->key)
+        insert_to_inflicted_tree(&((*node_root)->right), ptr_pcellword);
 
-        // If current character of word is same as root's character,
+        // If == as root->key,
     else {
-        if (word->next)
-            insert_to_inflicted_tree(&((*root)->mid_eq), word->next);
-
-            // the last character of the word
+        if (ptr_pcellword->next)
+            insert_to_inflicted_tree(&((*node_root)->mid_eq), ptr_pcellword->next);
+        //endofword-
         else{
-            (*root)->end_of_word++;
-            if(!(*root)->pointer){
-                ((*root)->pointer)= create_inftype(typelistt);
+            (*node_root)->end_of_word++;
+            if(!(*node_root)->pointer){
+                ((*node_root)->pointer)= create_inftype(typelistt);
             }
 
-            return root;
+            return node_root;
         }
     }
 
 }
-//creates an inflicted type data structure
+//creates an inflicted type key structure
 inf_Type * create_inftype(t_ht_list * typelist){
     inf_Type * temp= (inf_Type*)malloc(sizeof(inf_Type));
     p_cell tempo=typelist->head;

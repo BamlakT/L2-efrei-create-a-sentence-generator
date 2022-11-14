@@ -23,7 +23,7 @@ typedef struct inf_type
 // same sturcture as the base tree but the pointer variable will point to inf_Type
 typedef struct inf_node
 {
-    char data;
+    char key;
     // True if this character is last character of one of the words
     int end_of_word;
     struct inf_type * pointer;
@@ -32,7 +32,7 @@ typedef struct inf_node
 // A node of ternary search tree
 typedef struct node
 {
-    char data;
+    char key;
 
     // True if this character is last character of one of the words
     //and also acts as a count of the number of inflicted words in the inflicted tree
@@ -49,13 +49,12 @@ typedef struct node
 // A utility function to create a new ternary search tree node
 Node* newNode(char );
 Node * insert_to_baseTree(Node **root, p_cell ptr_word);
-void traverseTSTUtil(Node* , char* , int );
-void traverseinfTSTUtil(inf_Node * , char* , int );
-void traverseTST(Node* );
-void traverseinfTST(inf_Node * );
-int searchTST(Node *, p_cell);
+void base_recprint(Node* , char * , int );
+void inf_printtree(inf_Node * , char* , int );
+
+int findinbasetree(Node *node_root, p_cell ptr_wrd);
 inf_Type * create_inftype(t_ht_list *);
-inf_Node ** insert_to_inflicted_tree(inf_Node **root, p_cell word);
+inf_Node ** insert_to_inflicted_tree(inf_Node **root, p_cell ptr_pcellword);
 inf_Node* create_inflicted_tst(char );
 inf_Node *insertinffromlist(inf_Node **, p_cell,t_ht_list *);
 #endif //DICTIONARYPROJECT_TST_NODE_H
