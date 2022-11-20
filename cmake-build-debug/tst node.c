@@ -172,6 +172,14 @@ inf_Type * create_inftype(t_ht_list * typelist){
             case 'P':
                 if(tempo->next&&tempo->next->value=='L')
                     temp->PL_SG='P';
+                else{
+                    if(tempo->next&&tempo->next->value=='1')
+                        temp->person=1;
+                    else if(tempo->next&&tempo->next->value=='2')
+                        temp->person=2;
+                    else if(tempo->next&&tempo->next->value=='3')
+                        temp->person=3;
+                }
                 break;
             case 'S':
                 if(tempo->next&&tempo->next->value=='G')
@@ -194,6 +202,8 @@ inf_Type * create_inftype(t_ht_list * typelist){
         temp->PL_SG='B';
     if(!temp->gender)
         temp->gender='B';
+    if(!temp->person)
+        temp->person=0;
     return temp;
 
 }

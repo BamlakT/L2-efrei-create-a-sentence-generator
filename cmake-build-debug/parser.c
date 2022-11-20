@@ -101,7 +101,7 @@ void insertall(t_ht_list *baselist,  t_ht_list * inflictedlist,t_ht_list *typeli
 
     }
 }
-
+//alle(r)->pointer =inf_node
 t_ht_list * randomgenerator(Node * root){
     t_ht_list * word=createlist();
    // srand(time(0));
@@ -224,6 +224,36 @@ void model_one_two(){
         displaytowordvoid(*randomgenerator(verb));
         displaytowordvoid(*randomgenerator(noun));
         displaytowordvoid(*randomgenerator(adjective));}
+    else if (i==3){
+        switch(rand()%3){
+            case 0:
+                printf("Axel ");
+                break;
+            case 1:
+                printf("Bamlak ");
+                break;
+            case 2:
+                printf("Sami ");
+                break;
+        }
+        printf("le bg ");
+        srand(time(NULL));
+        displaytowordvoid(*randomgenerator(verb));
+        displaytowordvoid(*randomgenerator(noun));
+       // displaytowordvoid(*randomgenerator(adjective));
+        printf("avec ");
+        switch (rand()%2) {
+            case 0:
+                printf("lui");
+                break;
+            case 1:
+                printf("elle");
+                break;
+
+        }
+        //Axel manger(random verb) piment(random noun) rouge(random adjective) avec lui/elle
+
+    }
 }
 
 
