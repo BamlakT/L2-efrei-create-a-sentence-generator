@@ -16,8 +16,8 @@ int menu_real();
 void autocomplete(Node* , p_cell );
 int search_tree(int);
 void print_tree();
-void modelone();
+void model_one_two();
 
+void extract_randomword();
 
-Node *fuuuuu();
 #endif //DICTIONARYPROJECT_PARSER_H

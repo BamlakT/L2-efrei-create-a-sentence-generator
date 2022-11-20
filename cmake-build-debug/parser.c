@@ -197,36 +197,36 @@ t_ht_list * randomgenerator(Node * root){
             stop=1;
         }
     }
-    /*
-    printf("\n hi\n");
-    displaytowordvoid(*word);
-    printf("\n above\n");*/
     return word;
-
 }
 
 
-void modelone(){
+void model_one_two(){
     int i=0;
+    //choice of the model of the sentence
     printf("\nplease choose which model you want\n");
     printf(" 1--->first form | 2--->second form\n 3---<Third form |  4 --->Back\n  ");
 
-
+    //read the input/answer
     scanf("%d", &i);
     if (i == 1) {
+        //model 1 random sentence
+        //random word from the (noun,adjective,verb,adverb) tree
         displaytowordvoid(*randomgenerator(noun));
         displaytowordvoid(*randomgenerator(adjective));
         displaytowordvoid(*randomgenerator(verb));
         displaytowordvoid(*randomgenerator(noun));
     } else if (i == 2) {
+        //model 2 random sentence
         displaytowordvoid(*randomgenerator(noun));
         printf(" qui ");
         displaytowordvoid(*randomgenerator(verb));
         displaytowordvoid(*randomgenerator(verb));
         displaytowordvoid(*randomgenerator(noun));
         displaytowordvoid(*randomgenerator(adjective));}
-
 }
+
+
 int menu_real(){
     int num;
 
@@ -234,7 +234,7 @@ int menu_real(){
         num=6;
         do { // SAISIE SECU
             printf("\nPlease enter your choice\n");
-            printf(" (1) Search words from the tree | (2) Print all the base words in the tree\n (3) Generate Randoms Sentence  | (4) Get the inflicted form of a base word\n (5)Quit\n  ");
+            printf(" (1) Search words from the tree | (2) Print all the base words in all trees\n (3) Generate Randoms Sentence  | (4) Get the inflicted form of a base word\n (5) Generate Random word       | (6) Quit \n  ");
             printf("What do you want ?\n:");
 
             scanf("%d", &num);
@@ -242,39 +242,54 @@ int menu_real(){
         switch(num){
             case 1 :
                 search_tree(0);
-                //fonctions
-                //return second_menu();
                 break;
             case 2 :
                 print_tree();
-
-                break;        //return second_menu();
-            case 3 :
-                modelone();
-                return menu_real();
-                //fonctions
-                break;//return second_menu();
-            case 4:
-                if(search_tree(1)){}
                 break;
-            case 5 :
+            case 3 :
+                model_one_two();
+                return menu_real();
+            case 4:
+                search_tree(1);
+                break;
+            case 6:
                 printf("Goodbye!\n");
                 return 0;
+            case 5:
+                extract_randomword();
                 break;
             default:
                 printf("incorrect type of value given!!  Please enter numbers not characters\n");
-               // menu_real();
-               num=5;
+                num=5;
                 return -1;
                 break;
-
         }
-
-
     }
-
 }
 
+void extract_randomword(){
+    int i=0;
+    //choice of which tree
+    printf("\nplease choose from which tree you want to extract a random word\n");
+    printf(" 1--->verb | 2--->noun\n 3--->adverb |  4 --->adjective\n  ");
+
+    //read the input/answer
+    scanf("%d", &i);
+    switch (i) {
+        case 1:
+            displaytowordvoid(*randomgenerator(verb));
+            break;
+        case 2:
+            displaytowordvoid(*randomgenerator(noun));
+            break;
+        case 3:
+            displaytowordvoid(*randomgenerator(adverb));
+            break;
+        case 4:
+            displaytowordvoid(*randomgenerator(adjective));
+            break;
+    }
+}
 
 
 void print_tree(){

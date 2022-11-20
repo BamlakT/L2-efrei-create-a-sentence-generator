@@ -24,6 +24,5 @@ t_ht_list* createlist();
 void addTailHt(t_ht_list *, char );
 p_cell createCell(char);
 void deleteList(p_cell * ,p_cell * );
-void displayStdList(t_ht_list);
 void displaytowordvoid(t_ht_list );
 #endif

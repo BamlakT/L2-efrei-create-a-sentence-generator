@@ -102,19 +102,14 @@ int findinbasetree(Node *node_root, p_cell ptr_wrd)
 {
     if (!node_root)
         return 0;
-
     if (ptr_wrd->value < (node_root)->key)
         return findinbasetree(node_root->left, ptr_wrd);
-
     else if (ptr_wrd->value > (node_root)->key)
         return findinbasetree(node_root->right, ptr_wrd);
-
     else
     {
         if (!(ptr_wrd->next)){
-
             return node_root->inflictedno;}
-
         return findinbasetree(node_root->mid_eq, ptr_wrd->next);
     }
 }

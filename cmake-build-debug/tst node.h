@@ -14,6 +14,9 @@
 
 typedef struct inf_type
 {
+    //for verbs: between 1 and 3 gives the person
+    //but for other forms (adverbs,adjectives,nouns) it is set to zero
+    int person;
     // a character 'M' if Masculine, 'F' if Feminine, 'B' if Both
     char gender;
     // a character 'P' if Plural, 'S' if Singular, 'B' if Both
@@ -29,6 +32,7 @@ typedef struct inf_node
     struct inf_type * pointer;
     struct inf_node *left, *mid_eq, *right;
 }inf_Node ;
+
 // A node of ternary search tree
 typedef struct node
 {
