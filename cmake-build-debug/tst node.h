@@ -15,7 +15,7 @@
 typedef struct inf_type
 {
     //for verbs: between 1 and 3 gives the person
-    //but for other forms (adverbs,adjectives,nouns) it is set to zero
+    //but for other forms (adverbs,adjectives,verbs,noun)
     int person;
     // a character 'M' if Masculine, 'F' if Feminine, 'B' if Both
     char gender;

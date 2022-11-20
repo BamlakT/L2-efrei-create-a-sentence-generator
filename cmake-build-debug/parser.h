@@ -17,7 +17,7 @@ void autocomplete(Node* , p_cell );
 int search_tree(int);
 void print_tree();
 void model_one_two();
-
+void random_helper(Node *);
 void extract_randomword();
-
+t_ht_list * randomgenerator_inflicted(inf_Node *);
 #endif //DICTIONARYPROJECT_PARSER_H

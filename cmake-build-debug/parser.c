@@ -67,6 +67,8 @@ int File_parser() {
     }
     //finished reading the file close it
     fclose(dictionary);
+    //srand(time(NULL));
+    //random_helper(verb);
     return (0);
 }
 
@@ -101,7 +103,7 @@ void insertall(t_ht_list *baselist,  t_ht_list * inflictedlist,t_ht_list *typeli
 
     }
 }
-//alle(r)->pointer =inf_node
+//generates a random base form
 t_ht_list * randomgenerator(Node * root){
     t_ht_list * word=createlist();
    // srand(time(0));
@@ -203,56 +205,41 @@ t_ht_list * randomgenerator(Node * root){
 
 void model_one_two(){
     int i=0;
+    int j = 0;
     //choice of the model of the sentence
     printf("\nplease choose which model you want\n");
-    printf(" 1--->first form | 2--->second form\n 3---<Third form |  4 --->Back\n  ");
+    printf (" 1--->base form | 2--->inflicted form\n");   // added line on 20 november//
+    scanf("%d", &j);
+    if (j==1){
+        printf(" 1--->first form | 2--->second form\n 3---<Third form |  4 --->Back\n  ");
 
-    //read the input/answer
-    scanf("%d", &i);
-    if (i == 1) {
-        //model 1 random sentence
-        //random word from the (noun,adjective,verb,adverb) tree
-        displaytowordvoid(*randomgenerator(noun));
-        displaytowordvoid(*randomgenerator(adjective));
-        displaytowordvoid(*randomgenerator(verb));
-        displaytowordvoid(*randomgenerator(noun));
-    } else if (i == 2) {
-        //model 2 random sentence
-        displaytowordvoid(*randomgenerator(noun));
-        printf(" qui ");
-        displaytowordvoid(*randomgenerator(verb));
-        displaytowordvoid(*randomgenerator(verb));
-        displaytowordvoid(*randomgenerator(noun));
-        displaytowordvoid(*randomgenerator(adjective));}
-    else if (i==3){
-        switch(rand()%3){
-            case 0:
-                printf("Axel ");
-                break;
-            case 1:
-                printf("Bamlak ");
-                break;
-            case 2:
-                printf("Sami ");
-                break;
+        //read the input/answer
+        scanf("%d", &i);
+        if (i == 1) {
+            //model 1 random sentence
+            //random word from the (noun,adjective,verb,adverb) tree
+            displaytowordvoid(*randomgenerator(noun));
+            displaytowordvoid(*randomgenerator(adjective));
+            displaytowordvoid(*randomgenerator(verb));
+            displaytowordvoid(*randomgenerator(noun));
+        } else if (i == 2) {
+            //model 2 random sentence
+            displaytowordvoid(*randomgenerator(noun));
+            printf(" qui ");
+            displaytowordvoid(*randomgenerator(verb));
+            displaytowordvoid(*randomgenerator(verb));
+            displaytowordvoid(*randomgenerator(noun));
+            displaytowordvoid(*randomgenerator(adjective));}
+    }
+    else if (j==2){
+        int k=0;
+        printf(" 1--->first model | 2--->second model\n");
+        scanf("%d", &k);
+        if(k==1){
+           // model1_inflicted_form();}
+       // else //if(k==2){
+           // model2_inflicted_form();
         }
-        printf("le bg ");
-        srand(time(NULL));
-        displaytowordvoid(*randomgenerator(verb));
-        displaytowordvoid(*randomgenerator(noun));
-       // displaytowordvoid(*randomgenerator(adjective));
-        printf("avec ");
-        switch (rand()%2) {
-            case 0:
-                printf("lui");
-                break;
-            case 1:
-                printf("elle");
-                break;
-
-        }
-        //Axel manger(random verb) piment(random noun) rouge(random adjective) avec lui/elle
-
     }
 }
 
@@ -264,7 +251,7 @@ int menu_real(){
         num=6;
         do { // SAISIE SECU
             printf("\nPlease enter your choice\n");
-            printf(" (1) Search words from the tree | (2) Print all the base words in all trees\n (3) Generate Randoms Sentence  | (4) Get the inflicted form of a base word\n (5) Generate Random word       | (6) Quit \n  ");
+            printf(" (1) Search words from the tree | (2) Print all the base words in all trees\n (3) Generate Randoms Sentence  | (4) Get the inflicted form of a base word\n (5) Generate Random base word /Inflicted word   | (6) Quit \n  ");
             printf("What do you want ?\n:");
 
             scanf("%d", &num);
@@ -298,29 +285,51 @@ int menu_real(){
 }
 
 void extract_randomword(){
-    int i=0;
+    int i=0,k=0;
+    printf("\nplease choose which model you want\n");
+    printf (" 1--->base form | 2--->inflicted form\n");
+    scanf("%d", &k);
     //choice of which tree
     printf("\nplease choose from which tree you want to extract a random word\n");
     printf(" 1--->verb | 2--->noun\n 3--->adverb |  4 --->adjective\n  ");
 
     //read the input/answer
     scanf("%d", &i);
-    switch (i) {
-        case 1:
-            displaytowordvoid(*randomgenerator(verb));
-            break;
-        case 2:
-            displaytowordvoid(*randomgenerator(noun));
-            break;
-        case 3:
-            displaytowordvoid(*randomgenerator(adverb));
-            break;
-        case 4:
-            displaytowordvoid(*randomgenerator(adjective));
-            break;
+    if(k==1){
+        switch (i) {
+            case 1:
+                displaytowordvoid(*randomgenerator(verb));
+                break;
+            case 2:
+                displaytowordvoid(*randomgenerator(noun));
+                break;
+            case 3:
+                displaytowordvoid(*randomgenerator(adverb));
+                break;
+            case 4:
+                displaytowordvoid(*randomgenerator(adjective));
+                break;
+        }
     }
-}
+    else{
+        switch (i) {
+            case 1:
+                random_helper(verb);
+                break;
+            case 2:
+                random_helper(noun);
+                break;
+            case 3:
+                random_helper(adverb);
+                break;
+            case 4:
+                random_helper(adjective);
+                break;
+        }
 
+    }
+
+}
 
 void print_tree(){
     printf("Following is traversal of noun ternary search tree\n");
@@ -344,37 +353,6 @@ void print_tree(){
     base_recprint(verb, verblist, 0);
    // printbasetree(verb);
 }
-
-/*
-               printf("\n********Printing the child of adverb***************************** /\n");
-               printinflictedtree((temp)->pointer);
-               printf("\n********Printing the child of child of adverb***************************** /\n");
-               switch ((temp1)->pointer->gender) {
-                   case 'F':
-                       printf("Fem\n");
-                       break;
-                   case 'M':
-                       printf("Mas\n");
-                       break;
-                   default:
-                       printf("Both mas and fem\n");
-                       break;
-
-               }
-
-               switch ((temp1)->pointer->PL_SG) {
-                   case 'S':
-                       printf("Singular\n");
-                       break;
-                   case 'P':
-                       printf("Plural\n");
-                       break;
-                   default:
-                       printf("Both Plural and Singular\n");
-                       break;
-
-               }
-               printf("*******************\n");*/
 
 int search_tree(int num){
     t_ht_list * list=createlist();
@@ -465,4 +443,143 @@ int search_tree(int num){
     }
 
 
+}
+
+void random_helper(Node * root){
+    t_ht_list *mylist;//verb
+    mylist =randomgenerator(root);//alle(r)
+    //displaytowordvoid(*mylist);
+    //printf("\n ..................................\n");
+    Node * last_node =insert_to_baseTree(&root,mylist->head);
+    inf_Node * inf_root=last_node->pointer;
+    t_ht_list * inf_list = randomgenerator_inflicted(inf_root);
+   // printf("\n ..................................\n");
+    //printf("display one random inflicted word \n");
+    displaytowordvoid(*inf_list);
+    inf_Node ** leaf_inf=insert_to_inflicted_tree(&inf_root, inf_list->head);
+    if((*leaf_inf)->pointer->gender=='F'){
+        printf("\nThis word is Feminine");
+    }
+    else if((*leaf_inf)->pointer->gender=='M')
+        printf("\nThis word is Masculine");
+    else
+        printf("\nThis word works for both Masculine and Feminine");
+
+
+    if((*leaf_inf)->pointer->PL_SG=='S') {
+            printf("\nThis word is Singular");}
+    else if((*leaf_inf)->pointer->PL_SG=='P')
+        printf("\nThis word is Plural");
+    else
+        printf("\nThis word works for both Plural and Singular\n");
+
+    if((*leaf_inf)->pointer->person==1)
+        printf("This verb is first person");
+    else if((*leaf_inf)->pointer->person==2)
+        printf("This verb is second person");
+    else if((*leaf_inf)->pointer->person==3)
+        printf("This verb is third person");
+
+
+
+}
+
+
+
+t_ht_list * randomgenerator_inflicted(inf_Node * root){
+    t_ht_list * word=createlist();
+    // srand(time(0));
+    int y,i,stop=0,ismiddle=0,u=0;
+    inf_Node *temp=root;
+    if(temp) {
+        y = rand() % 25;
+        for (int j = 0; temp->right && j < y; ++j) {
+
+            temp = temp->right;
+        }
+        // printf("\n%c<----%d\n",temp->key,y);
+        u=1;
+    }
+    while(!stop){
+
+        //srand(time(0));
+        if(temp){
+
+            y=rand()%15;
+            for (int j = 0; u==0&&temp->right &&j <y ; ++j) {
+                temp=temp->right;
+            }
+
+            //printf("reached here");
+            if(u)
+                i=1;
+            else
+                i=rand()%3;
+            u=0;
+            //printf("temp->key--->%c\n",temp->key);
+            switch (i) {
+                case 0:
+                    if(temp->left){
+                        //printf("temp=temp->left no null\n");
+                        temp=temp->left;}
+                    else {
+                        if (temp->right&&rand() % 3 != 0){
+                            //printf("rand no--->0 left=null and temp=temp->right \n");
+                            temp=temp->right;}
+                        else{
+                            //printf("rand no--->1or temp->right is null left=null and temp=temp->mid_eq/n");
+                            ismiddle=1;}
+                        //temp=temp->mid_eq;}
+                    }
+                    break;
+                case 1:
+                    ismiddle=1;
+                    break;
+                case 2:
+                    if(temp->right){
+
+                        //printf("temp=temp->right no null\n");
+                        temp=temp->right;}
+                    else {
+                        if (temp->left&&rand() % 2 == 0){
+                            //printf("rand no--->0 right=null and temp=temp->left \n");
+                            temp=temp->left;}
+                        else{
+                            // printf("rand no--->1 or templeft is null rigth=null and temp=temp->mid_eq\n");
+                            ismiddle=1;}
+                        //temp=temp->mid_eq;}
+                    }
+                    break;
+                default:
+                    //printf("to be solved");
+                    stop=1;
+                    break;
+            }
+            if(temp&&temp->end_of_word!=0&&ismiddle){         // ?
+                if(rand()%3==0){
+                    //printf("**************rand =0 letter to be added--->%c\n",temp->key);
+                    addTailHt(word,temp->key);
+                    stop=1;}
+                else{/*
+                    printf("************rand=1 letter to be added--->%c\n",temp->key);*/
+                    addTailHt(word,temp->key);
+                    //if(ismiddle){
+                    ismiddle=0;
+                    temp=temp->mid_eq;   // }
+
+
+                }
+            }
+            else if(ismiddle){/*
+                printf("middle no null and temp=temp->mid_eq\n");
+                printf("************rand=1 letter to be added--->%c\n",temp->key);*/
+                addTailHt(word,temp->key);
+                ismiddle=0;
+                temp=temp->mid_eq;
+            }
+        }else{
+            stop=1;
+        }
+    }
+    return word;
 }
