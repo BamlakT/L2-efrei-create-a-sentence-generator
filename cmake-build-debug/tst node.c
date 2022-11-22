@@ -173,11 +173,11 @@ inf_Type * create_inftype(t_ht_list * typelist){
                 if(tempo->next&&tempo->next->value=='L')
                     temp->PL_SG='P';
                 else{
-                    if(tempo->next&&tempo->next->value=='1')
+                    if(tempo->next&&tempo->next->value==1)
                         temp->person=1;
-                    else if(tempo->next&&tempo->next->value=='2')
+                    else if(tempo->next&&tempo->next->value==2)
                         temp->person=2;
-                    else if(tempo->next&&tempo->next->value=='3')
+                    else if(tempo->next&&tempo->next->value==3)
                         temp->person=3;
                 }
                 break;

@@ -24,3 +24,13 @@
 645	2688	6906859323677971	dictionaryproject.exe	94f9828550b7dc5b
 3	383	6906873773180191	CMakeFiles/dictionaryproject.dir/parser.c.obj	38a4fb02779d1a1a
 384	851	6906873777829004	dictionaryproject.exe	94f9828550b7dc5b
+2	354	6906937768054392	CMakeFiles/dictionaryproject.dir/main.c.obj	68a719e9378a0686
+13	480	6906937769269045	CMakeFiles/dictionaryproject.dir/parser.c.obj	38a4fb02779d1a1a
+480	917	6906937773571039	dictionaryproject.exe	94f9828550b7dc5b
+3	1460	6906960843857576	CMakeFiles/dictionaryproject.dir/main.c.obj	68a719e9378a0686
+11	1839	6906960852007519	CMakeFiles/dictionaryproject.dir/parser.c.obj	38a4fb02779d1a1a
+1840	2981	6906960862077169	dictionaryproject.exe	94f9828550b7dc5b
+4	249	6906961515053522	CMakeFiles/dictionaryproject.dir/tst_node.c.obj	3bc5359abec01d56
+250	635	6906961518794167	dictionaryproject.exe	94f9828550b7dc5b
+2	429	6906964074289180	CMakeFiles/dictionaryproject.dir/parser.c.obj	38a4fb02779d1a1a
+430	1343	6906964082516648	dictionaryproject.exe	94f9828550b7dc5b

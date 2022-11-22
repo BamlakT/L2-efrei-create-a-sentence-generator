@@ -1,4 +1,5 @@
 //
+
 // Created by hp on 28-Oct-22.
 //
 #include <stdio.h>
@@ -67,8 +68,6 @@ int File_parser() {
     }
     //finished reading the file close it
     fclose(dictionary);
-    //srand(time(NULL));
-    //random_helper(verb);
     return (0);
 }
 
@@ -103,10 +102,10 @@ void insertall(t_ht_list *baselist,  t_ht_list * inflictedlist,t_ht_list *typeli
 
     }
 }
-//generates a random base form
+
 t_ht_list * randomgenerator(Node * root){
     t_ht_list * word=createlist();
-   // srand(time(0));
+    // srand(time(0));
     int y,i,stop=0,ismiddle=0,u=0;
     Node *temp=root;
     if(temp) {
@@ -115,12 +114,12 @@ t_ht_list * randomgenerator(Node * root){
 
             temp = temp->right;
         }
-       // printf("\n%c<----%d\n",temp->key,y);
+        // printf("\n%c<----%d\n",temp->key,y);
         u=1;
     }
     while(!stop){
 
-       //srand(time(0));
+        //srand(time(0));
         if(temp){
 
             y=rand()%15;
@@ -134,7 +133,7 @@ t_ht_list * randomgenerator(Node * root){
             else
                 i=rand()%3;
             u=0;
-          //printf("temp->key--->%c\n",temp->key);
+            //printf("temp->key--->%c\n",temp->key);
             switch (i) {
                 case 0:
                     if(temp->left){
@@ -147,7 +146,7 @@ t_ht_list * randomgenerator(Node * root){
                         else{
                             //printf("rand no--->1or temp->right is null left=null and temp=temp->mid_eq/n");
                             ismiddle=1;}
-                            //temp=temp->mid_eq;}
+                        //temp=temp->mid_eq;}
                     }
                     break;
                 case 1:
@@ -163,9 +162,9 @@ t_ht_list * randomgenerator(Node * root){
                             //printf("rand no--->0 right=null and temp=temp->left \n");
                             temp=temp->left;}
                         else{
-                           // printf("rand no--->1 or templeft is null rigth=null and temp=temp->mid_eq\n");
+                            // printf("rand no--->1 or templeft is null rigth=null and temp=temp->mid_eq\n");
                             ismiddle=1;}
-                            //temp=temp->mid_eq;}
+                        //temp=temp->mid_eq;}
                     }
                     break;
                 default:
@@ -236,12 +235,13 @@ void model_one_two(){
         printf(" 1--->first model | 2--->second model\n");
         scanf("%d", &k);
         if(k==1){
-           // model1_inflicted_form();}
-       // else //if(k==2){
-           // model2_inflicted_form();
+            model1_inflicted_form();}
+        else if(k==2){
+            model2_inflicted_form();
         }
     }
 }
+
 
 
 int menu_real(){
@@ -330,161 +330,6 @@ void extract_randomword(){
     }
 
 }
-
-void print_tree(){
-    printf("Following is traversal of noun ternary search tree\n");
-    char nounl[MAX];
-
-    base_recprint(noun, nounl, 0);
-    //printbasetree(noun);
-    printf("Following is traversal of adjective ternary search tree\n");
-    char adjectivel[MAX];
-
-    base_recprint(adjective, adjectivel, 0);
-   // printbasetree(adjective);
-    printf("Following is traversal of adverb ternary search tree\n");
-    char adverblist[MAX];
-
-    base_recprint(adverb, adverblist, 0);
-   // printbasetree(adverb);
-    printf("Following is traversal of verb ternary search tree\n");
-    char verblist[MAX];
-
-    base_recprint(verb, verblist, 0);
-   // printbasetree(verb);
-}
-
-int search_tree(int num){
-    t_ht_list * list=createlist();
-    int i=0;
-    do{
-    printf("\nplease choose from which you want to search\n");
-    printf(" 1--->verb | 2--->noun\n 3--->adverb |  4 --->adjective\n  ");
-    scanf("%d", &i);
-        printf("%d\n",i);
-    } while (i<1|| i > 4);
-    char name[50];
-    printf("Enter the word you want to search: ");
-    scanf("%s",name);
-    for(int j=0;name[j]!='\0';j++)
-        addTailHt(list,name[j]);
-    //printf("%d",i);
-    switch(i){
-        case 1 :
-            if(findinbasetree(verb, list->head)){
-                //displaytowordvoid(*list);
-                printf("\nit is found\n");
-                if(num){
-                    char buffer[MAX];
-                    inf_printtree((insert_to_baseTree(&verb, list->head))->pointer, buffer, 0);
-                }
-                  //  printinflictedtree((insert_to_baseTree(&verb, list->head))->pointer);
-                return 1;
-            }
-            else{
-                printf("not found");
-                return 0;
-            }
-
-            break;
-        case 2 :
-
-            if(findinbasetree(noun, list->head)){
-                printf("\nit is found\n");
-                if(num){
-                    char buffer[MAX];
-                    inf_printtree((insert_to_baseTree(&noun, list->head))->pointer, buffer, 0);
-                }
-                    //printinflictedtree((insert_to_baseTree(&noun, list->head))->pointer);
-                return 1;
-            }
-            else{
-                printf("\nit is found\n");
-                return 0;
-            }
-
-            break;        //return second_menu();
-        case 3 :
-            if(findinbasetree(adverb, list->head)){
-                printf("\nit is found\n");
-                if(num){
-                    char buffer[MAX];
-                    inf_printtree((insert_to_baseTree(&adverb, list->head))->pointer, buffer, 0);
-                }
-                   // printinflictedtree((insert_to_baseTree(&adverb, list->head))->pointer);
-                return 1;
-            }
-            else{
-                printf("\nit is found\n");
-                return 0;
-            }
-            //fonctions
-            break;//return second_menu();
-        case 4 :
-            if(findinbasetree(adjective, list->head)){
-                printf("\nit is found\n");
-                if(num){
-                    char buffer[MAX];
-                    inf_printtree(insert_to_baseTree(&adjective, list->head)->pointer, buffer, 0);
-                }
-                    //printinflictedtree((insert_to_baseTree(&adjective, list->head))->pointer);
-                return 1;
-            }
-            else{
-                printf("not found");
-                return 0;
-            }
-            break;
-        default:
-            printf("incorrect type of value given!!  Please enter numbers not characters\n");
-
-            break;
-
-    }
-
-
-}
-
-void random_helper(Node * root){
-    t_ht_list *mylist;//verb
-    mylist =randomgenerator(root);//alle(r)
-    //displaytowordvoid(*mylist);
-    //printf("\n ..................................\n");
-    Node * last_node =insert_to_baseTree(&root,mylist->head);
-    inf_Node * inf_root=last_node->pointer;
-    t_ht_list * inf_list = randomgenerator_inflicted(inf_root);
-   // printf("\n ..................................\n");
-    //printf("display one random inflicted word \n");
-    displaytowordvoid(*inf_list);
-    inf_Node ** leaf_inf=insert_to_inflicted_tree(&inf_root, inf_list->head);
-    if((*leaf_inf)->pointer->gender=='F'){
-        printf("\nThis word is Feminine");
-    }
-    else if((*leaf_inf)->pointer->gender=='M')
-        printf("\nThis word is Masculine");
-    else
-        printf("\nThis word works for both Masculine and Feminine");
-
-
-    if((*leaf_inf)->pointer->PL_SG=='S') {
-            printf("\nThis word is Singular");}
-    else if((*leaf_inf)->pointer->PL_SG=='P')
-        printf("\nThis word is Plural");
-    else
-        printf("\nThis word works for both Plural and Singular\n");
-
-    if((*leaf_inf)->pointer->person==1)
-        printf("This verb is first person");
-    else if((*leaf_inf)->pointer->person==2)
-        printf("This verb is second person");
-    else if((*leaf_inf)->pointer->person==3)
-        printf("This verb is third person");
-
-
-
-}
-
-
 
 t_ht_list * randomgenerator_inflicted(inf_Node * root){
     t_ht_list * word=createlist();
@@ -582,4 +427,286 @@ t_ht_list * randomgenerator_inflicted(inf_Node * root){
         }
     }
     return word;
+}
+
+
+void model1_inflicted_form(){
+    char genre1;
+    char SG1;
+    switch(rand()%3) {
+        case 0:
+            genre1 = 'M';
+            SG1 = 'S';
+            printf("Le ");
+            break;
+        case 2:
+            genre1 = 'F';
+            SG1 = 'S';
+            printf("La ");
+            break;
+        case 3:
+            genre1 = 'B';
+            SG1 = 'P';
+            printf("Les");
+            break;
+    }
+    random_inflicted_form(noun, 0, genre1, SG1);          // 2nd word (noun)
+    // call a function to print the list noun1 //
+    random_inflicted_form(adjective, 0, genre1, SG1);          // 3rd word (adjective)
+    random_inflicted_form(verb, 0, genre1 ,SG1);          // 4thword (verb)
+    char genre2;
+    char SG2;
+    switch(rand()%3) {     // 5th word random between "un", "une", "des"
+        case 0:            // the result of rand() conditions the next noun genre and plurality
+            genre2 = 'M';
+            SG2 = 'S';
+            printf("un ");
+            break;
+        case 2:
+            genre2 = 'F';
+            SG2 = 'S';
+            printf("une ");
+            break;
+        case 3:
+            genre2 = 'B';
+            SG2 = 'P';
+            printf("des ");
+            break;
+    }
+    random_inflicted_form(noun, 0, genre2, SG2);          // last word of the sentence model 1//
+}
+
+
+
+void model2_inflicted_form (){
+    char genre1;
+    char SG1;
+    switch(rand()%3) {               // either "le", "la" or "les". The genre / plurality will condition the following words //
+        case 0 :
+            genre1 = 'M'; // check        // M: masculine
+            SG1 = 'S'; // check              //S : singular
+            printf("Le ");
+            break;
+        case 1:
+            genre1 = 'F';               // F: feminine
+            SG1 =  'S';
+            printf("La ");
+            break;
+        case 2:
+            genre1 = 'B';            // both genders
+            SG1 = 'P';               // P: plural
+            printf("Les ");
+            break;}
+    random_inflicted_form(noun, 0, genre1, SG1);          // 2nd word (noun)
+    printf("qui ");
+    random_inflicted_form(verb, 0, 'B', SG1);          // 3rd word (verb)
+    srand(time(NULL));
+    random_inflicted_form(verb, 0, 'B', SG1);          // 4th word (verb)
+    char genre2;
+    char SG2;
+    switch(rand() %3) {             // 5th word of the sentence //
+        case 1: '0';                         // either "le", "la", or "les". The genre and plurality will condition the next noun and adjective
+            genre2 = 'M';
+            SG2 =  'S';
+            printf("le ");
+            break;
+        case 2: '1';
+            genre2 = 'F';
+            SG2 =  'S';
+            printf("la ");
+            break;
+        case 3: '2';
+            genre2 = 'B';
+            SG2 =  'P';
+            printf("les ");
+            break;}
+    random_inflicted_form(noun, 0, genre2, SG2);          // 6th word (noun)
+    // call a function to print the list noun2 //
+    random_inflicted_form(adjective, 0, genre2, SG2);          // 7thword (adjective)
+    // call a function to print the list adjective1 //
+}
+
+
+void print_tree(){
+    printf("Following is traversal of noun ternar;y search tree\n");
+    char nounl[MAX];
+
+    base_recprint(noun, nounl, 0);
+    //printbasetree(noun);
+    printf("Following is traversal of adjective ternary search tree\n");
+    char adjectivel[MAX];
+
+    base_recprint(adjective, adjectivel, 0);
+    // printbasetree(adjective);
+    printf("Following is traversal of adverb ternary search tree\n");
+    char adverblist[MAX];
+
+    base_recprint(adverb, adverblist, 0);
+    // printbasetree(adverb);
+    printf("Following is traversal of verb ternary search tree\n");
+    char verblist[MAX];
+
+    base_recprint(verb, verblist, 0);
+    // printbasetree(verb);
+}
+
+
+int search_tree(int num){
+    t_ht_list * list=createlist();
+    int i=0;
+    do{
+        printf("\nplease choose from which you want to search\n");
+        printf(" 1--->verb | 2--->noun\n 3--->adverb |  4 --->adjective\n  ");
+        scanf("%d", &i);
+        printf("%d\n",i);
+    } while (i<1|| i > 4);
+    char name[50];
+    printf("Enter the word you want to search: ");
+    scanf("%s",name);
+    for(int j=0;name[j]!='\0';j++)
+        addTailHt(list,name[j]);
+    //printf("%d",i);
+    switch(i){
+        case 1 :
+            if(findinbasetree(verb, list->head)){
+                //displaytowordvoid(*list);
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&verb, list->head))->pointer, buffer, 0);
+                }
+                //  printinflictedtree((insert_to_baseTree(&verb, list->head))->pointer);
+                return 1;
+            }
+            else{
+                printf("not found");
+                return 0;
+            }
+
+            break;
+        case 2 :
+
+            if(findinbasetree(noun, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&noun, list->head))->pointer, buffer, 0);
+                }
+                //printinflictedtree((insert_to_baseTree(&noun, list->head))->pointer);
+                return 1;
+            }
+            else{
+                printf("\nit is found\n");
+                return 0;
+            }
+
+            break;        //return second_menu();
+        case 3 :
+            if(findinbasetree(adverb, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree((insert_to_baseTree(&adverb, list->head))->pointer, buffer, 0);
+                }
+                // printinflictedtree((insert_to_baseTree(&adverb, list->head))->pointer);
+                return 1;
+            }
+            else{
+                printf("\nit is found\n");
+                return 0;
+            }
+            //fonctions
+            break;//return second_menu();
+        case 4 :
+            if(findinbasetree(adjective, list->head)){
+                printf("\nit is found\n");
+                if(num){
+                    char buffer[MAX];
+                    inf_printtree(insert_to_baseTree(&adjective, list->head)->pointer, buffer, 0);
+                }
+                //printinflictedtree((insert_to_baseTree(&adjective, list->head))->pointer);
+                return 1;
+            }
+            else{
+                printf("not found");
+                return 0;
+            }
+            break;
+        default:
+            printf("incorrect type of value given!!  Please enter numbers not characters\n");
+
+            break;
+
+    }
+
+
+}
+
+
+// get my random inflicted word and store it in a list
+// then I store my leaf_node in mynode
+// then i store inf_Type in mynode_type
+// then i check that the conditions are right (genre / plurality)
+// if it's right i return the list
+// if not i run again
+
+
+
+
+
+void random_inflicted_form(Node* type, int person, char genre, char PL_SG){ // random adjective of a given genre and plurality//
+    inf_Node ** leaf_inf;
+    Node * last_node;
+    inf_Node * inf_root;
+    t_ht_list *mylist1 = createlist();
+    t_ht_list * inf_list = createlist();
+    //timeout if more than 30 trials
+    int count=0;
+    do {
+        deleteList(&mylist1->head, &mylist1->tail);     // free the list to avoid having multiple words inside it //
+        deleteList(&inf_list->head, &inf_list->tail);
+        mylist1 = randomgenerator(type); // random base form noun//
+        last_node =insert_to_baseTree(&type,mylist1->head);
+        inf_root=last_node->pointer;     // inflicted node root //
+        inf_list = randomgenerator_inflicted(inf_root); // same process for inflicted forms//
+        leaf_inf=insert_to_inflicted_tree(&inf_root, inf_list->head);
+        count++;
+    }while(((*leaf_inf)->pointer->PL_SG!=PL_SG) || ((*leaf_inf)->pointer->gender!=genre) || ((*leaf_inf)->pointer->person!=person)&&count<30);   // check the genre and plurality conditions //
+    displaytowordvoid(*inf_list);
+}
+
+
+void random_helper(Node * root) {
+    t_ht_list *mylist;//verb
+    mylist = randomgenerator(root);//alle(r)
+    //displaytowordvoid(mylist);
+    //printf("\n ..................................\n");
+    Node *last_node = insert_to_baseTree(&root, mylist->head);
+    inf_Node *inf_root = last_node->pointer;
+    t_ht_list *inf_list = randomgenerator_inflicted(inf_root);
+    // printf("\n ..................................\n");
+    //printf("display one random inflicted word \n");
+    displaytowordvoid(*inf_list);
+    inf_Node **leaf_inf = insert_to_inflicted_tree(&inf_root, inf_list->head);
+    if ((*leaf_inf)->pointer->gender == 'F') {
+        printf("\nThis word is Feminine");
+    } else if ((*leaf_inf)->pointer->gender == 'M')
+        printf("\nThis word is Masculine");
+    else
+        printf("\nThis word works for both Masculine and Feminine");
+
+
+    if ((*leaf_inf)->pointer->PL_SG == 'S') {
+        printf("\nThis word is Singular");
+    } else if ((*leaf_inf)->pointer->PL_SG == 'P')
+        printf("\nThis word is Plural");
+    else
+        printf("\nThis word works for both Plural and Singular\n");
+
+    if ((*leaf_inf)->pointer->person == 1)
+        printf("This verb is first person");
+    else if ((*leaf_inf)->pointer->person == 2)
+        printf("This verb is second person");
+    else if ((*leaf_inf)->pointer->person == 3)
+        printf("This verb is third person");
 }

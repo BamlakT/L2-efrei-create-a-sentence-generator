@@ -20,4 +20,7 @@ void model_one_two();
 void random_helper(Node *);
 void extract_randomword();
 t_ht_list * randomgenerator_inflicted(inf_Node *);
+void model2_inflicted_form ();
+void model1_inflicted_form();
+void random_inflicted_form(Node* , int, char , char );
 #endif //DICTIONARYPROJECT_PARSER_H
